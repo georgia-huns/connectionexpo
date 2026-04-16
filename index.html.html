@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Connection Expo Guelph — Friends of Friends</title>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;0,800;1,700;1,800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --coral: #90AE8B;
+    --coral-light: #EBF2E6;
+    --coral-dark: #6B8B67;
+    --yellow: #F9C846;
+    --yellow-light: #FEF6D6;
+    --teal: #2EC4B6;
+    --teal-light: #D8F5F3;
+    --teal-dark: #1A9B8F;
+    --plum: #7B2D8B;
+    --plum-light: #F0D9F4;
+    --green: #90AE8B;
+    --green-light: #EBF2E6;
+    --text: #1A1A2E;
+    --text-mid: #4A4A6A;
+    --text-soft: #8888AA;
+    --white: #FFFFFF;
+    --off-white: #FDFAF6;
+    --border: rgba(26,26,46,0.12);
+    --radius: 16px;
+    --radius-sm: 10px;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--off-white);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(253,250,246,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .nav-logo {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.15rem; font-weight: 700;
+    color: var(--text);
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none;
+  }
+  .nav-logo .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--coral); display: inline-block; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 0.875rem; font-weight: 500; color: var(--text-mid); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--coral); }
+  .nav-cta {
+    background: var(--coral); color: var(--white);
+    border: none; padding: 10px 22px; border-radius: 50px;
+    font-size: 0.875rem; font-weight: 600;
+    cursor: pointer; text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .nav-cta:hover { background: var(--coral-dark); transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 92vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 4rem 2rem 3rem;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 700px 500px at 20% 30%, rgba(244,132,95,0.14), transparent),
+      radial-gradient(ellipse 600px 500px at 80% 70%, rgba(46,196,182,0.14), transparent),
+      radial-gradient(ellipse 400px 400px at 50% 40%, rgba(249,200,70,0.08), transparent);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.7);
+    border: 1px solid var(--border);
+    color: var(--text-mid);
+    font-size: 0.8rem; font-weight: 600;
+    letter-spacing: 0.04em;
+    padding: 8px 20px; border-radius: 50px;
+    margin-bottom: 2.5rem;
+    animation: fadeInDown 0.8s ease;
+  }
+  .hero-badge .star { color: var(--yellow); font-size: 1rem; }
+  .hero h1 {
+    font-family: 'Open Sans', sans-serif;
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+    position: relative;
+    animation: fadeInUp 0.8s ease 0.1s both;
+  }
+  .hero h1 em {
+    color: var(--coral);
+    font-style: italic;
+  }
+  .hero-sub {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: var(--text-mid);
+    max-width: 520px;
+    margin-bottom: 2rem;
+    line-height: 1.7;
+    position: relative;
+    animation: fadeInUp 0.8s ease 0.25s both;
+  }
+  .hero-actions {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 3.5rem;
+    position: relative;
+    animation: fadeInUp 0.8s ease 0.35s both;
+  }
+  .btn-primary {
+    background: var(--coral); color: var(--white);
+    border: none; padding: 16px 32px; border-radius: 50px;
+    font-size: 1rem; font-weight: 600; font-family: inherit;
+    cursor: pointer; text-decoration: none;
+    transition: all 0.25s;
+    box-shadow: 0 4px 20px rgba(244,132,95,0.25);
+  }
+  .btn-primary:hover {
+    background: var(--coral-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 28px rgba(244,132,95,0.35);
+  }
+  .btn-secondary {
+    background: var(--white); color: var(--text);
+    border: 1.5px solid var(--border); padding: 15px 30px;
+    border-radius: 50px;
+    font-size: 1rem; font-weight: 600; font-family: inherit;
+    cursor: pointer; text-decoration: none;
+    transition: all 0.25s;
+  }
+  .btn-secondary:hover {
+    border-color: var(--coral); color: var(--coral);
+    transform: translateY(-2px);
+  }
+
+  .hero-stats {
+    display: flex; gap: 3.5rem;
+    justify-content: center;
+    animation: fadeInUp 0.8s ease 0.5s both;
+    position: relative;
+    background: rgba(255,255,255,0.5);
+    padding: 2rem 3rem;
+    border-radius: var(--radius);
+  }
+  .hero-stat { text-align: center; }
+  .hero-stat-num {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 2.2rem; font-weight: 700;
+    color: var(--text);
+    line-height: 1.1;
+  }
+  .hero-stat-label {
+    font-size: 0.8rem;
+    color: var(--text-soft);
+    font-weight: 500;
+    margin-top: 0.3rem;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 5rem 2rem; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.7rem; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--coral);
+    margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-family: 'Open Sans', sans-serif;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    color: var(--text);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+  .section-desc {
+    font-size: 1.05rem;
+    color: var(--text-mid);
+    max-width: 600px;
+    line-height: 1.7;
+  }
+
+  /* ── ABOUT ── */
+  #about { background: var(--white); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+    margin-top: 2rem;
+  }
+  .about-text p {
+    color: var(--text-mid);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-bottom: 1.25rem;
+  }
+  .about-details {
+    background: var(--off-white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2.5rem;
+  }
+  .about-details h3 {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.4rem;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+  }
+  .detail-row {
+    display: flex; align-items: flex-start; gap: 14px;
+    margin-bottom: 1.2rem;
+    font-size: 0.95rem;
+    color: var(--text-mid);
+  }
+  .detail-row svg { flex-shrink: 0; color: var(--coral); margin-top: 2px; }
+  .detail-row strong { color: var(--text); }
+
+  /* ── EXPERIENCE ── */
+  #experience { background: var(--off-white); }
+  .experience-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+  .exp-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2.5rem 2rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .exp-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .exp-card:nth-child(1)::before { background: var(--teal); }
+  .exp-card:nth-child(2)::before { background: var(--plum); }
+  .exp-card:nth-child(3)::before { background: var(--coral); }
+  .exp-card:nth-child(4)::before { background: var(--yellow); }
+  .exp-card:hover::before { transform: scaleX(1); }
+  .exp-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.06);
+  }
+  .exp-icon {
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.25rem;
+    font-size: 1.5rem;
+  }
+  .exp-icon.teal { background: var(--teal-light); }
+  .exp-icon.plum { background: var(--plum-light); }
+  .exp-icon.coral { background: var(--coral-light); }
+  .exp-icon.yellow { background: var(--yellow-light); }
+  .exp-card h3 {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.2rem;
+    margin-bottom: 0.6rem;
+    color: var(--text);
+  }
+  .exp-card p {
+    font-size: 0.95rem;
+    color: var(--text-mid);
+    line-height: 1.7;
+  }
+
+  /* ── SPONSORS ── */
+  #sponsors { background: var(--white); }
+
+  .involvement-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .involvement-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 2.5rem 2rem;
+    text-align: left;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    font-family: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .involvement-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.06);
+    border-color: var(--coral);
+  }
+  .involvement-icon {
+    width: 56px; height: 56px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.25rem;
+    font-size: 1.6rem;
+  }
+  .involvement-card h3 {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+  .involvement-card p {
+    font-size: 0.95rem;
+    color: var(--text-mid);
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+    flex-grow: 1;
+  }
+  .involvement-link {
+    color: var(--coral);
+    font-weight: 700;
+    font-size: 0.9rem;
+  }
+
+  /* Modal */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(26,26,46,0.65);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    padding: 2rem 1rem;
+    overflow-y: auto;
+  }
+  .modal-overlay.active {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  .modal-content {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 2.5rem 2rem 2rem;
+    max-width: 800px;
+    width: 100%;
+    position: relative;
+    margin: auto;
+    animation: modalIn 0.3s ease;
+  }
+  .modal-close {
+    position: absolute;
+    top: 1rem; right: 1rem;
+    background: var(--off-white);
+    border: 1px solid var(--border);
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    font-size: 1rem;
+    cursor: pointer;
+    color: var(--text-mid);
+    transition: all 0.2s;
+    z-index: 10;
+  }
+  .modal-close:hover {
+    background: var(--coral);
+    color: var(--white);
+    border-color: var(--coral);
+  }
+  @keyframes modalIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .sponsor-cta {
+    background: linear-gradient(135deg, var(--coral-light), var(--yellow-light), var(--teal-light));
+    border-radius: var(--radius);
+    padding: 4rem;
+    text-align: center;
+    margin-top: 2rem;
+  }
+  .sponsor-cta h3 {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 2rem;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+  .sponsor-cta p {
+    color: var(--text-mid);
+    font-size: 1.05rem;
+    max-width: 550px;
+    margin: 0 auto 2rem;
+    line-height: 1.7;
+  }
+  .sponsor-types {
+    display: flex; gap: 1rem; justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+  .sponsor-tag {
+    background: rgba(255,255,255,0.7);
+    border: 1px solid var(--border);
+    padding: 8px 18px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-mid);
+  }
+
+  /* ── FAQ ── */
+  #faq { background: var(--off-white); }
+  .faq-list { max-width: 750px; margin-top: 2rem; }
+  .faq-item { border-bottom: 1px solid var(--border); padding: 1.5rem 0; }
+  .faq-q {
+    font-weight: 600; font-size: 1.05rem; color: var(--text);
+    cursor: pointer; display: flex; align-items: center;
+    justify-content: space-between; gap: 1rem;
+    background: none; border: none; width: 100%;
+    text-align: left; font-family: inherit; padding: 0;
+  }
+  .faq-q svg { flex-shrink: 0; transition: transform 0.3s; color: var(--coral); }
+  .faq-a {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.35s ease;
+    color: var(--text-mid); font-size: 0.95rem; line-height: 1.7;
+  }
+  .faq-item.open .faq-a { max-height: 300px; padding-top: 1rem; }
+  .faq-item.open .faq-q svg { transform: rotate(45deg); }
+
+  /* ── CONTACT ── */
+  #contact { background: var(--white); }
+  .contact-card {
+    background: var(--off-white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 3rem; margin-top: 2rem; max-width: 600px;
+  }
+  .contact-card p {
+    color: var(--text-mid); font-size: 1.05rem;
+    line-height: 1.7; margin-bottom: 1.5rem;
+  }
+  .contact-link {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: var(--coral); font-weight: 600; font-size: 1.1rem;
+    text-decoration: none;
+  }
+  .contact-link:hover { text-decoration: underline; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--text);
+    color: rgba(255,255,255,0.6);
+    padding: 3rem 2rem; text-align: center;
+  }
+  .footer-logo { margin-bottom: 1.5rem; }
+  .footer-logo img { height: 50px; width: auto; opacity: 0.9; }
+  .footer-links {
+    display: flex; gap: 2rem; justify-content: center;
+    list-style: none; margin-bottom: 1.5rem; flex-wrap: wrap;
+  }
+  .footer-links a {
+    color: rgba(255,255,255,0.5); text-decoration: none;
+    font-size: 0.85rem; font-weight: 500; transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--coral); }
+  .footer-copy { font-size: 0.8rem; color: rgba(255,255,255,0.3); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 0 1.25rem; }
+    .nav-links { display: none; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .experience-grid { grid-template-columns: 1fr; }
+    .involvement-grid { grid-template-columns: 1fr; }
+    .hero-stats { gap: 2rem; padding: 1.5rem 2rem; }
+  }
+  @media (max-width: 600px) {
+    section { padding: 3rem 1.25rem; }
+    .hero { padding: 3rem 1.25rem; min-height: 85vh; }
+    .hero-actions { flex-direction: column; align-items: center; }
+    .btn-primary, .btn-secondary { width: 100%; text-align: center; }
+    .hero-stats { flex-direction: column; gap: 1.5rem; }
+    .sponsor-cta { padding: 2.5rem 1.5rem; }
+    .contact-card { padding: 2rem 1.5rem; }
+    .modal-content { padding: 2.5rem 1rem 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <a href="#" class="nav-logo">
+    <span class="dot"></span>
+    Together, a great place to be
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#sponsors">Sponsors</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#sponsors" class="nav-cta">Get Involved</a>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-badge">
+    <span class="star">★</span>
+    Sept 20th, 2026
+  </div>
+  <h1><span style="font-size:0.45em;font-weight:700;letter-spacing:0.08em;display:block;margin-bottom:0.3rem;color:var(--coral);">GUELPH'S 1ST ANNUAL</span><span style="color:var(--text);">CONNECTION EXPO</span></h1>
+  <p style="font-size:1.1rem;color:var(--text-mid);margin-top:-0.5rem;margin-bottom:1.5rem;font-weight:500;">Presented by <span style="font-family:'Open Sans',sans-serif;font-weight:700;font-style:italic;color:var(--text);">Friends of Friends</span></p>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div style="font-size:0.95rem;color:var(--text);font-weight:700;line-height:1.4;max-width:200px;">Discover clubs you didn't know existed</div>
+    </div>
+    <div class="hero-stat">
+      <div style="font-size:0.95rem;color:var(--text);font-weight:700;line-height:1.4;max-width:200px;">Skip months of research and DMs</div>
+    </div>
+    <div class="hero-stat">
+      <div style="font-size:0.95rem;color:var(--text);font-weight:700;line-height:1.4;max-width:200px;">Meet the people behind the orgs</div>
+    </div>
+  </div>
+  <div class="hero-actions" style="margin-top:2rem;gap:2rem;">
+    <a href="#about" style="color:var(--text);font-weight:600;font-size:0.95rem;text-decoration:none;border-bottom:1.5px solid var(--coral);padding-bottom:2px;transition:color 0.2s;">Learn more</a>
+    <a href="#sponsors" style="color:var(--text-mid);font-weight:600;font-size:0.95rem;text-decoration:none;border-bottom:1.5px solid transparent;padding-bottom:2px;transition:color 0.2s;">Get involved →</a>
+  </div>
+</section>
+
+<!-- ── ABOUT ── -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text">
+        <div class="section-label">About the Expo</div>
+        <h2 class="section-title">Walk in curious. Walk out connected.</h2>
+        <p>The Connection Expo is a free afternoon where you'll meet the people behind Guelph's clubs, organizations, and volunteer groups — face to face, in one place.</p>
+        <p>By the time you leave, you'll know exactly what exists in this city, who's running it, and how to get involved. No Googling, no guessing — just real conversations with real people who want you there.</p>
+        <p>Hosted by Friends of Friends. Open to everyone.</p>
+      </div>
+      <div class="about-details">
+        <h3>Event Details</h3>
+        <div class="detail-row">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          <span><strong>Saturday, September 20, 2026</strong></span>
+        </div>
+        <div class="detail-row">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          <span><strong>12:00 PM – 4:00 PM</strong></span>
+        </div>
+        <div class="detail-row">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span><strong>Guelph Farmers' Market</strong><br>2 Gordon St, Guelph, ON</span>
+        </div>
+        <div class="detail-row">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+          <span><strong>Free admission</strong> — no tickets required</span>
+        </div>
+        <div class="detail-row">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 16v-4M12 8h.01"/></svg>
+          <span><strong>Accessible venue</strong> — wheelchair accessible entrances at the side of the building on Gordon St and at the back from the parking lot. Gender-neutral bathrooms available.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── EXPERIENCE ── -->
+<section id="experience">
+  <div class="container">
+    <div class="section-label">The Experience</div>
+    <h2 class="section-title">What you'll find at the Expo</h2>
+    <p class="section-desc">No awkward networking. No sales pitches. Just genuine opportunities to meet people, try something new, and feel like you belong.</p>
+
+    <div class="experience-grid">
+      <div class="exp-card">
+        <div class="exp-icon teal">🌿</div>
+        <h3>Wellness + Community Booths</h3>
+        <p>Explore local organizations, wellness practitioners, and community groups — all focused on helping you connect and thrive.</p>
+      </div>
+      <div class="exp-card">
+        <div class="exp-icon plum">💬</div>
+        <h3>Interactive Experiences</h3>
+        <p>Conversation stations, creative activities, and group experiences designed to break the ice and spark meaningful exchanges.</p>
+      </div>
+      <div class="exp-card">
+        <div class="exp-icon coral">🏘️</div>
+        <h3>Community Resources</h3>
+        <p>Discover what Guelph has to offer — from clubs and groups to classes and volunteer opportunities you never knew existed.</p>
+      </div>
+      <div class="exp-card">
+        <div class="exp-icon yellow">✨</div>
+        <h3>A Sense of Belonging</h3>
+        <p>Leave feeling more connected to your city and the people in it. That's the whole point.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── GET INVOLVED ── -->
+<section id="sponsors">
+  <div class="container">
+    <div class="section-label">Get Involved</div>
+    <h2 class="section-title">Join the Connection Expo</h2>
+    <p class="section-desc">Whether you want to showcase your organization, sponsor the event, or lend a hand on the day — we'd love to have you.</p>
+
+    <div class="involvement-grid">
+      <button class="involvement-card" onclick="openForm('vendor')">
+        <div class="involvement-icon" style="background:var(--coral-light);">🏘️</div>
+        <h3>Apply as a Vendor</h3>
+        <p>Bring your business, organization, or community group to the Expo.</p>
+        <span class="involvement-link">Get in touch →</span>
+      </button>
+
+      <button class="involvement-card" onclick="openForm('sponsor')">
+        <div class="involvement-icon" style="background:var(--yellow-light);">✨</div>
+        <h3>Become a Sponsor</h3>
+        <p>Partner with us to help make Guelph's 1st Connection Expo happen.</p>
+        <span class="involvement-link">Get in touch →</span>
+      </button>
+
+      <button class="involvement-card" onclick="openForm('volunteer')">
+        <div class="involvement-icon" style="background:var(--teal-light);">🤝</div>
+        <h3>Volunteer with Us</h3>
+        <p>Help build connection in Guelph. We'd love to have you on the team.</p>
+        <span class="involvement-link">Get in touch →</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ── FORM MODAL ── -->
+<div id="form-modal" class="modal-overlay" onclick="closeForm(event)">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeForm()" aria-label="Close">✕</button>
+    <div id="modal-body">
+      <div id="form-vendor" style="display:none;">
+        <iframe data-tally-src="https://tally.so/embed/q4E42G?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="3789" frameborder="0" marginheight="0" marginwidth="0" title="Connection Expo — Vendor Application"></iframe>
+      </div>
+      <div id="form-sponsor" style="display:none;">
+        <p style="color:var(--text-mid);font-size:1.05rem;padding:2rem;text-align:center;">Sponsor form coming soon — check back shortly!</p>
+      </div>
+      <div id="form-volunteer" style="display:none;">
+        <iframe data-tally-src="https://tally.so/embed/rjrD5v?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="2665" frameborder="0" marginheight="0" marginwidth="0" title="Connection Expo — Volunteer Application"></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── FAQ ── -->
+<section id="faq">
+  <div class="container">
+    <div class="section-label">FAQ</div>
+    <h2 class="section-title">Questions? We've got you.</h2>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q">
+          Do I need a ticket?
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-a">Nope! The Connection Expo is completely free. Just show up anytime between 12:00 and 4:00 PM. No registration required.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">
+          Who is this for?
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-a">Everyone! Whether you're new to Guelph, looking to expand your social circle, or just curious about community events — the Connection Expo welcomes all ages and backgrounds.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">
+          Can I come alone?
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-a">Absolutely — and many people will. The whole event is designed to help you meet new people, so coming solo is actually the perfect way to experience it.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">
+          Where is the Guelph Farmers' Market?
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-a">The Guelph Farmers' Market is located at 2 Gordon Street in downtown Guelph. The venue is fully wheelchair accessible — entrances are available at the side of the building on Gordon St and at the back from the parking lot. Gender-neutral bathrooms are available. Street parking and nearby lots are available, and it's easily accessible by Guelph Transit.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">
+          How can I get involved as a vendor or sponsor?
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-a">Email us at georgia@fofsocial.com with a bit about your organization and how you'd like to participate. We're looking for vendors and sponsors aligned with our mission of building genuine connection.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">
+          What is Friends of Friends?
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <div class="faq-a">Friends of Friends (FOF) is a community-building venture based in Guelph, Ontario, founded by Georgia. Through events, coaching, and connection programming, FOF helps people build real friendships and a sense of belonging. The Connection Expo is our biggest event yet.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section id="contact">
+  <div class="container">
+    <div class="section-label">Contact</div>
+    <h2 class="section-title">Get in touch</h2>
+    <div class="contact-card">
+      <p>Have a question, want to collaborate, or just want to say hi? Reach out — we'd love to hear from you.</p>
+      <a href="mailto:georgia@fofsocial.com" class="contact-link">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94"/></svg>
+        georgia@fofsocial.com
+      </a>
+      <div style="display:flex;gap:1.25rem;margin-top:1.5rem;flex-wrap:wrap;">
+        <a href="https://instagram.com/joinfriends.of.friends" target="_blank" rel="noopener" class="contact-link" style="font-size:0.95rem;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          Instagram
+        </a>
+        <a href="https://www.facebook.com/profile.php?id=61563004823203" target="_blank" rel="noopener" class="contact-link" style="font-size:0.95rem;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          Facebook
+        </a>
+        <a href="https://www.linkedin.com/company/join-friends-of-friends/" target="_blank" rel="noopener" class="contact-link" style="font-size:0.95rem;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-logo">
+    <img src="fof-logo-white.png" alt="Friends of Friends">
+  </div>
+  <ul class="footer-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#sponsors">Sponsors</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="mailto:georgia@fofsocial.com">Contact</a></li>
+    <li><a href="https://instagram.com/joinfriends.of.friends" target="_blank" rel="noopener">Instagram</a></li>
+    <li><a href="https://www.facebook.com/profile.php?id=61563004823203" target="_blank" rel="noopener">Facebook</a></li>
+    <li><a href="https://www.linkedin.com/company/join-friends-of-friends/" target="_blank" rel="noopener">LinkedIn</a></li>
+  </ul>
+  <p class="footer-copy">&copy; 2026 Friends of Friends. Built with love in Guelph, Ontario.</p>
+</footer>
+
+<script>
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
+
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // Open/close form modal
+  function openForm(type) {
+    document.getElementById('form-vendor').style.display = type === 'vendor' ? 'block' : 'none';
+    document.getElementById('form-sponsor').style.display = type === 'sponsor' ? 'block' : 'none';
+    document.getElementById('form-volunteer').style.display = type === 'volunteer' ? 'block' : 'none';
+    document.getElementById('form-modal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+    if (typeof Tally !== 'undefined') Tally.loadEmbeds();
+  }
+  function closeForm(e) {
+    if (e && e.target !== e.currentTarget && !e.target.classList.contains('modal-close')) return;
+    document.getElementById('form-modal').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeForm();
+  });
+</script>
+
+<!-- Tally embed script -->
+<script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
+
+</body>
+</html>
